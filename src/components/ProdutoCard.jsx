@@ -2,7 +2,8 @@ import { Link } from 'react-router'
 import { formatarPreco } from '../utils/formatarPreco'
 
 export default function ProdutoCard({ produto, onAdicionar }) {
-  const esgotado = produto.estoque === 0
+  const precoValido = Number(String(produto.price ?? '').replace(',', '.')) > 0
+  const esgotado = produto.estoque === 0 || !precoValido
 
   return (
     <article className="card">
@@ -30,7 +31,7 @@ export default function ProdutoCard({ produto, onAdicionar }) {
       </div>
 
       <button className="botao" onClick={() => onAdicionar(produto)} disabled={esgotado}>
-        Adicionar ao carrinho
+        {precoValido ? 'Adicionar ao carrinho' : 'Preço indisponível'}
       </button>
     </article>
   )

@@ -15,8 +15,15 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
     )
   }
 
+  const precoValido = Number(String(produto.price ?? '').replace(',', '.')) > 0
   const relacionados = produtos
-    .filter((item) => item.category === produto.category && item.id !== produto.id)
+    .filter(
+      (item) =>
+        item.category === produto.category &&
+        item.id !== produto.id &&
+        Number(String(item.price ?? '').replace(',', '.')) > 0 &&
+        item.estoque > 0
+    )
     .slice(0, 4)
 
   return (
@@ -44,9 +51,9 @@ export default function PaginaProduto({ produtos, onAdicionar }) {
           <button
             className="botao botao-grande"
             onClick={() => onAdicionar(produto)}
-            disabled={produto.estoque === 0}
+            disabled={produto.estoque === 0 || !precoValido}
           >
-            Adicionar ao carrinho
+            {precoValido ? 'Adicionar ao carrinho' : 'Preço indisponível'}
           </button>
 
           <ul className="detalhe-garantias">
