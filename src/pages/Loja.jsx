@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ProdutoCard from '../components/ProdutoCard'
+import { temPrecoValido } from '../utils/carrinho'
 
 const CATEGORIAS = [
   { id: 'todas', nome: 'Todas' },
@@ -15,7 +16,7 @@ export default function Loja({ produtos, onAdicionar }) {
 
   useEffect(() => {
     const produtosVendaveis = (produtos ?? []).filter(
-      (produto) => produto.estoque > 0 && Number(String(produto.price ?? '').replace(',', '.')) > 0
+      (produto) => Number(produto.estoque ?? 0) > 0 && temPrecoValido(produto)
     )
 
     if (categoria === 'todas') {

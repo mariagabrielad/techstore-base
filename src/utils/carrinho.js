@@ -6,7 +6,27 @@ export function normalizarPreco(valor) {
     return 0
   }
 
-  const texto = String(valor).trim().replace('R$', '').replace('.', '').replace(',', '.')
+  let texto = String(valor).trim().replace(/R\$/g, '').replace(/\s/g, '')
+
+  if (!texto || texto === 'null' || texto === 'undefined') {
+    return 0
+  }
+
+  if (texto.includes(',') && texto.includes('.')) {
+    if (texto.lastIndexOf(',') > texto.lastIndexOf('.')) {
+      texto = texto.replace(/\./g, '').replace(',', '.')
+    } else {
+      texto = texto.replace(/,/g, '')
+    }
+  } else if (texto.includes(',')) {
+    texto = texto.replace(',', '.')
+  } else if (texto.includes('.')) {
+    const partes = texto.split('.')
+    if (partes.length > 2 || (partes[partes.length - 1].length === 3 && partes[0].length > 0)) {
+      texto = texto.replace(/\./g, '')
+    }
+  }
+
   const valorNumerico = Number(texto)
   return Number.isFinite(valorNumerico) ? valorNumerico : 0
 }
@@ -42,6 +62,6 @@ export function agruparItens(carrinho) {
   return itens
 }
 
-normalizarPreco("89") // 89
-normalizarPreco("299,90") // 299.9
-normalizarPreco("1.299,00") // 1299
+normalizarPreco('89')
+normalizarPreco('299,90')
+normalizarPreco('1.299,00')

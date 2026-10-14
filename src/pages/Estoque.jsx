@@ -1,7 +1,9 @@
 // Página usada pelo time de estoque para acompanhar a quantidade de cada produto
-export default function Estoque({ produtos }) {
+export default function Estoque({ produtos, listaEspera = [] }) {
   // slice cria uma cópia, para o sort não alterar a lista original
-  const ordenados = produtos.slice().sort((a, b) => a.estoque - b.estoque)
+  const ordenados = produtos
+    .slice()
+    .sort((a, b) => Number(a.estoque ?? 0) - Number(b.estoque ?? 0))
 
   return (
     <section>
@@ -36,6 +38,30 @@ export default function Estoque({ produtos }) {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="tabela-moldura">
+        <h2>Lista de espera</h2>
+        {produtos.filter((produto) => Number(produto.estoque ?? 0) === 0).map((produto) => {
+          const clientesEsperando = listaEspera.filter((item) => item.produtoId === produto.id)
+
+          return (
+            <div key={produto.id} className="card card-lista-espera">
+              <h3>{produto.title}</h3>
+              {clientesEsperando.length === 0 ? (
+                <p>Nenhum cliente aguardando.</p>
+              ) : (
+                <ul>
+                  {clientesEsperando.map((cliente) => (
+                    <li key={cliente.id}>
+                      {cliente.nome} - {cliente.email}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )
+        })}
       </div>
     </section>
   )
