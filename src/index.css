@@ -395,7 +395,7 @@ h2 {
   font-size: 0.85rem;
 }
 
-.preco-original + .preco {
+.preco-original+.preco {
   color: var(--cor-destaque);
 }
 
@@ -622,7 +622,7 @@ h2 {
   padding: var(--espaco-4);
 }
 
-.item-carrinho + .item-carrinho {
+.item-carrinho+.item-carrinho {
   border-top: 1px solid var(--cor-borda);
 }
 
@@ -821,6 +821,104 @@ h2 {
 
 .tabela tbody tr:last-child td {
   border-bottom: none;
+}
+
+/* Painel do lojista */
+
+.painel-lojista {
+  display: grid;
+  gap: var(--espaco-6);
+}
+
+.painel-resumo {
+  display: grid;
+  gap: var(--espaco-4);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.resumo-card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: var(--espaco-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.resumo-card span {
+  color: var(--cor-texto-suave);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resumo-card strong {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -0.04em;
+}
+
+.resumo-card small {
+  color: var(--cor-texto-suave);
+}
+
+.resumo-card-principal {
+  background: linear-gradient(135deg, #15171c 0%, #2f3843 100%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.resumo-card-principal span,
+.resumo-card-principal small {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.painel-grid {
+  display: grid;
+  gap: var(--espaco-5);
+}
+
+@media (min-width: 820px) {
+  .painel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.painel-vazio {
+  padding: var(--espaco-4);
+}
+
+.tabela-simples {
+  margin-top: 0;
+}
+
+.lista-espera-painel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--espaco-3);
+}
+
+.lista-espera-painel li {
+  display: grid;
+  gap: var(--espaco-1);
+  padding: var(--espaco-3) var(--espaco-4);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.lista-espera-painel li:last-child {
+  border-bottom: none;
+}
+
+.lista-espera-painel strong {
+  font-weight: 700;
+}
+
+.lista-espera-painel span,
+.lista-espera-painel small {
+  color: var(--cor-texto-suave);
 }
 
 /* Rodapé */
